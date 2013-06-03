@@ -1,0 +1,105 @@
+﻿@model LWT.DiscoPlugin.Models.WarrantyJobDetailsModel
+<div id="LWTWarrantyProviderJobDetails">
+    @if (Model == null || !Model.JobDetailsParsed)
+    {
+        <table>
+            <tr>
+                <td style="text-align: center; vertical-align: middle;">
+                    <span class="smallMessage">Unable to provide details for this Job</span>
+                </td>
+                <td rowspan="3" style="width: 300px;">
+                    <div style="text-align: center; padding-top: 10px;">
+                        <a href="http://www.lwt.com.au/" target="_blank">
+                            <img src="@this.DiscoPluginResourceUrl("LWTLogo.png")" alt="LWT Logo" style="width: 213px; height: 48px;" />
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    }
+    else
+    { 
+        <table>
+            <tr>
+                <th style="width: 120px;">LWT Job Ids:
+                </th>
+                <td>
+                    @Model.LWTJobId
+                </td>
+                <td rowspan="3" style="width: 300px;">
+                    <div style="text-align: center; padding-top: 10px;">
+                        <a href="http://www.lwt.com.au/" target="_blank">
+                            <img src="@this.DiscoPluginResourceUrl("LWTLogo.png")" alt="LWT Logo" style="width: 213px; height: 48px;" /></a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 120px;">Date Logged:
+                </th>
+                <td>
+                    @Model.DateLogged
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 120px;">Date Completed:
+                </th>
+                <td>
+                    @Model.DateCompleted
+                </td>
+            </tr>
+            <tr>
+                <th style="width: 120px;">Fault Description:
+                </th>
+                <td colspan="2">
+                    @(new HtmlString(Model.FaultDescription))
+                </td>
+            </tr>
+        </table>
+        
+        <h3>Actions</h3>
+        if (Model.Actions == null || Model.Actions.Count == 0)
+        {
+        <span class="smallMessage">No actions founds</span>
+        }
+        else
+        { 
+        <table>
+            <tr>
+                <th style="text-align: left; width: 80px;">Type
+                </th>
+                <th style="text-align: left; width: 100px;">Date
+                </th>
+                <th style="text-align: left; width: auto;">Action Description
+                </th>
+                <th style="text-align: left; width: 120px;">Technician Id
+                </th>
+            </tr>
+            @foreach (var action in Model.Actions)
+            {
+                <tr>
+                    <td>@action.Type
+                    </td>
+                    <td>@action.Date
+                    </td>
+                    <td>@(new HtmlString(action.ActionDescription))
+                    </td>
+                    <td>@action.TechnicianId
+                    </td>
+                </tr>
+            }
+        </table> 
+        }
+        var cacheAge = DateTime.Now.Subtract(Model.CacheAge);
+        if (cacheAge.TotalSeconds > 1)
+        {
+            var cacheMinutes = (int)cacheAge.TotalMinutes;
+        <div class="smallMessage" style="text-align: right; margin-top: 4px;">
+            Retrieved @(cacheMinutes)
+            minute@{if (cacheMinutes != 1)
+                    {<text>s</text>;
+                    }}
+            ago
+        </div>
+        }
+    }
+</div>
