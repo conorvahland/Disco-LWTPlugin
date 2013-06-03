@@ -20,11 +20,9 @@ namespace LWT.DiscoPlugin.Internal
             var config = new ConfigurationStore(dbContext);
             config.CustomerEntityId = null;
             config.CustomerUsername = null;
+            dbContext.SaveChanges();
 
-            Status.UpdateStatus("Clearing Job Detail Cache");
-
-            if (Directory.Exists(Manifest.StorageLocation))
-                Directory.Delete(Manifest.StorageLocation, true);
+            // Storage Location will be cleared by the framework if requested by the user
         }
 
     }

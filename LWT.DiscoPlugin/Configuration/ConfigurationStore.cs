@@ -16,25 +16,13 @@ namespace LWT.DiscoPlugin.Configuration
         public string CustomerEntityId
         {
             get { return Get<string>(null); }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentNullException("value");
-
-                Set(value);
-            }
+            set { Set(value); }
         }
 
         public string CustomerUsername
         {
             get { return Get<string>(null); }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentNullException("value");
-
-                Set(value);
-            }
+            set { Set(value); }
         }
     }
 }
