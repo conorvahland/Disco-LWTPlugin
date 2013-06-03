@@ -168,7 +168,7 @@ WriteLiteral("                    ");
 
             
             #line 40 "..\..\Views\WarrantyJobDetails.cshtml"
-               Write(Model.DateLogged);
+                Write(Model.DateLogged.HasValue ? Model.DateLogged.Value.ToShortDateString() : "Unknown");
 
             
             #line default
@@ -184,7 +184,7 @@ WriteLiteral("                    ");
 
             
             #line 47 "..\..\Views\WarrantyJobDetails.cshtml"
-               Write(Model.DateCompleted);
+                Write(Model.DateCompleted.HasValue ? Model.DateCompleted.Value.ToShortDateString() : "Not Complete");
 
             
             #line default
@@ -288,7 +288,7 @@ WriteLiteral("\r\n                    </td>\r\n                    <td>");
 
             
             #line 82 "..\..\Views\WarrantyJobDetails.cshtml"
-                   Write(action.Date);
+                    Write(action.Date.HasValue ? action.Date.Value.ToShortDateString() : "Unknown");
 
             
             #line default

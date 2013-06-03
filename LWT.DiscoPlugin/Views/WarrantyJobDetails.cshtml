@@ -37,14 +37,14 @@
                 <th style="width: 120px;">Date Logged:
                 </th>
                 <td>
-                    @Model.DateLogged
+                    @(Model.DateLogged.HasValue ? Model.DateLogged.Value.ToShortDateString() : "Unknown")
                 </td>
             </tr>
             <tr>
                 <th style="width: 120px;">Date Completed:
                 </th>
                 <td>
-                    @Model.DateCompleted
+                    @(Model.DateCompleted.HasValue ? Model.DateCompleted.Value.ToShortDateString() : "Not Complete")
                 </td>
             </tr>
             <tr>
@@ -79,7 +79,7 @@
                 <tr>
                     <td>@action.Type
                     </td>
-                    <td>@action.Date
+                    <td>@(action.Date.HasValue ? action.Date.Value.ToShortDateString() : "Unknown")
                     </td>
                     <td>@(new HtmlString(action.ActionDescription))
                     </td>
