@@ -13,14 +13,14 @@ namespace LWT.DiscoPlugin.Internal
     public static class Helpers
     {
 
-        public static void UninstallData(DiscoDataContext dbContext, PluginManifest Manifest, ScheduledTaskStatus Status)
+        public static void UninstallData(DiscoDataContext Database, PluginManifest Manifest, ScheduledTaskStatus Status)
         {
             Status.UpdateStatus("Removing Configuration");
 
-            var config = new ConfigurationStore(dbContext);
+            var config = new ConfigurationStore(Database);
             config.CustomerEntityId = null;
             config.CustomerUsername = null;
-            dbContext.SaveChanges();
+            Database.SaveChanges();
 
             // Storage Location will be cleared by the framework if requested by the user
         }

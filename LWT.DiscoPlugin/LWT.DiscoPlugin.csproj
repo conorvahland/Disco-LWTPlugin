@@ -41,14 +41,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Disco.Data">
-      <HintPath>..\Resources\Disco References\Disco.Data.dll</HintPath>
+    <Reference Include="Disco.Data, Version=1.2.1014.1720, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Disco\Disco.Web\bin\Disco.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Disco.Models">
-      <HintPath>..\Resources\Disco References\Disco.Models.dll</HintPath>
+    <Reference Include="Disco.Models, Version=1.2.1014.1720, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Disco\Disco.Web\bin\Disco.Models.dll</HintPath>
     </Reference>
-    <Reference Include="Disco.Services">
-      <HintPath>..\Resources\Disco References\Disco.Services.dll</HintPath>
+    <Reference Include="Disco.Services, Version=1.2.1014.1720, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Disco\Disco.Web\bin\Disco.Services.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
@@ -137,7 +140,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -190,7 +195,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_StartDate="2011/7/1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.DeltaBaseYear.MonthAndDayStamp.TimeStamp" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

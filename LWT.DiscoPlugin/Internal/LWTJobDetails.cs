@@ -17,7 +17,7 @@ namespace LWT.DiscoPlugin.Internal
     {
         internal static string JobDetailsCachePath { get; set; }
 
-        internal static WarrantyJobDetailsModel LoadJobDetails(DiscoDataContext dbContext, Job Job)
+        internal static WarrantyJobDetailsModel LoadJobDetails(DiscoDataContext Database, Job Job)
         {
             int onlineWarrantyId = default(int);
             string deviceSerialNumber = Job.DeviceSerialNumber;

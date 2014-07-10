@@ -10,17 +10,17 @@ namespace LWT.DiscoPlugin.Configuration
 {
     public class ConfigurationHandler : PluginConfigurationHandler
     {
-        public override PluginConfigurationHandler.PluginConfigurationHandlerGetResponse Get(DiscoDataContext dbContext, Controller controller)
+        public override PluginConfigurationHandler.PluginConfigurationHandlerGetResponse Get(DiscoDataContext Database, Controller controller)
         {
-            var store = new ConfigurationStore(dbContext);
+            var store = new ConfigurationStore(Database);
             var model = store.ToViewModel();
 
-            return GetResponse(typeof(Views.Configuration), model);
+            return Response<Views.Configuration>(model);
         }
 
-        public override bool Post(DiscoDataContext dbContext, FormCollection form, Controller controller)
+        public override bool Post(DiscoDataContext Database, FormCollection form, Controller controller)
         {
-            var store = new ConfigurationStore(dbContext);
+            var store = new ConfigurationStore(Database);
             var model = controller.ToConfigurationModel();
 
             if (model == null)

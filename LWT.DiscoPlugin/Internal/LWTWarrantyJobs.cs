@@ -16,10 +16,10 @@ namespace LWT.DiscoPlugin.Internal
 {
     internal static class LWTWarrantyJobs
     {
-        public static bool ValidateEnvironment(DiscoDataContext dbContext, Controller controller, User TechUser)
+        public static bool ValidateEnvironment(DiscoDataContext Database, Controller controller, User TechUser)
         {
             // Validate Configuration
-            var config = new ConfigurationStore(dbContext);
+            var config = new ConfigurationStore(Database);
             if (string.IsNullOrWhiteSpace(config.CustomerEntityId))
                 controller.ModelState.AddModelError(string.Empty, "LWT Customer Entity Id is Required (See LWT Plugin Configuration)");
             if (string.IsNullOrWhiteSpace(config.CustomerUsername))
@@ -34,9 +34,9 @@ namespace LWT.DiscoPlugin.Internal
             return controller.ModelState.IsValid;
         }
 
-        public static Dictionary<string, string> DiscloseInformation(DiscoDataContext dbContext, Job Job, OrganisationAddress Address, User TechUser)
+        public static Dictionary<string, string> DiscloseInformation(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser)
         {
-            var config = new ConfigurationStore(dbContext);
+            var config = new ConfigurationStore(Database);
 
             return new Dictionary<string, string>()
             {
@@ -55,10 +55,10 @@ namespace LWT.DiscoPlugin.Internal
             };
         }
 
-        public static string SubmitJob(DiscoDataContext dbContext, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription)
+        public static string SubmitJob(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription)
         {
             // Send Job to LWT
-            var config = new ConfigurationStore(dbContext);
+            var config = new ConfigurationStore(Database);
 
             // Build Http Post Body
             var httpBody = new StringBuilder("Automated=1&");

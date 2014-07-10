@@ -17,7 +17,7 @@ namespace LWT.DiscoPlugin.Features
     {
         public override string WarrantyProviderId { get { return "LWT"; } }
 
-        public override void Initialize(DiscoDataContext dbContext)
+        public override void Initialize(DiscoDataContext Database)
         {
             Internal.LWTJobDetails.JobDetailsCachePath = System.IO.Path.Combine(this.Manifest.PluginManifest.StorageLocation, "JobDetailCache");
         }
@@ -26,28 +26,28 @@ namespace LWT.DiscoPlugin.Features
         
         public override Type SubmitJobViewType { get { return null; } }
 
-        public override dynamic SubmitJobViewModel(DiscoDataContext dbContext, Controller controller, Job Job, OrganisationAddress Address, User TechUser)
+        public override dynamic SubmitJobViewModel(DiscoDataContext Database, Controller controller, Job Job, OrganisationAddress Address, User TechUser)
         {
-            Internal.LWTWarrantyJobs.ValidateEnvironment(dbContext, controller, TechUser);
+            Internal.LWTWarrantyJobs.ValidateEnvironment(Database, controller, TechUser);
 
             return null;
         }
 
-        public override Dictionary<string, string> SubmitJobParseProperties(DiscoDataContext dbContext, FormCollection form, Controller controller, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription)
+        public override Dictionary<string, string> SubmitJobParseProperties(DiscoDataContext Database, FormCollection form, Controller controller, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription)
         {
-            Internal.LWTWarrantyJobs.ValidateEnvironment(dbContext, controller, TechUser);
+            Internal.LWTWarrantyJobs.ValidateEnvironment(Database, controller, TechUser);
 
             return null;
         }
 
-        public override Dictionary<string, string> SubmitJobDiscloseInfo(DiscoDataContext dbContext, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription, Dictionary<string, string> WarrantyProviderProperties)
+        public override Dictionary<string, string> SubmitJobDiscloseInfo(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription, Dictionary<string, string> WarrantyProviderProperties)
         {
-            return Internal.LWTWarrantyJobs.DiscloseInformation(dbContext, Job, Address, TechUser);
+            return Internal.LWTWarrantyJobs.DiscloseInformation(Database, Job, Address, TechUser);
         }
 
-        public override string SubmitJob(DiscoDataContext dbContext, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription, Dictionary<string, string> WarrantyProviderProperties)
+        public override string SubmitJob(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription, Dictionary<string, string> WarrantyProviderProperties)
         {
-            return Internal.LWTWarrantyJobs.SubmitJob(dbContext, Job, Address, TechUser, FaultDescription);
+            return Internal.LWTWarrantyJobs.SubmitJob(Database, Job, Address, TechUser, FaultDescription);
         }
         #endregion
 
@@ -58,9 +58,9 @@ namespace LWT.DiscoPlugin.Features
             get { return typeof(Views.WarrantyJobDetails); }
         }
 
-        public override dynamic JobDetailsViewModel(DiscoDataContext dbContext, Controller controller, Job Job)
+        public override dynamic JobDetailsViewModel(DiscoDataContext Database, Controller controller, Job Job)
         {
-            return Internal.LWTJobDetails.LoadJobDetails(dbContext, Job);
+            return Internal.LWTJobDetails.LoadJobDetails(Database, Job);
         }
 
         #endregion
