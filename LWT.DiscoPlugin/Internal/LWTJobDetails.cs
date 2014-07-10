@@ -17,24 +17,39 @@ namespace LWT.DiscoPlugin.Internal
     {
         internal static string JobDetailsCachePath { get; set; }
 
-        internal static WarrantyJobDetailsModel LoadJobDetails(DiscoDataContext Database, Job Job)
+        internal static JobDetailsModel LoadWarrantyJobDetails(DiscoDataContext Database, Job Job)
         {
-            int onlineWarrantyId = default(int);
+            string reference = (Job.JobMetaWarranty != null) ? Job.JobMetaWarranty.ExternalReference : null;
             string deviceSerialNumber = Job.DeviceSerialNumber;
 
-            if (deviceSerialNumber != null && Job.JobMetaWarranty != null &&
-                !string.IsNullOrWhiteSpace(Job.JobMetaWarranty.ExternalReference) &&
-                int.TryParse(Job.JobMetaWarranty.ExternalReference, out onlineWarrantyId))
+            return LoadJobDetails(Database, reference, deviceSerialNumber);
+        }
+
+        internal static JobDetailsModel LoadRepairJobDetails(DiscoDataContext Database, Job Job)
+        {
+            string reference = (Job.JobMetaNonWarranty != null) ? Job.JobMetaNonWarranty.RepairerReference : null;
+            string deviceSerialNumber = Job.DeviceSerialNumber;
+
+            return LoadJobDetails(Database, reference, deviceSerialNumber);
+        }
+
+        private static JobDetailsModel LoadJobDetails(DiscoDataContext Database, string Reference, string DeviceSerialNumber)
+        {
+            int onlineWarrantyId = default(int);
+
+            if (DeviceSerialNumber != null &&
+                !string.IsNullOrWhiteSpace(Reference) &&
+                int.TryParse(Reference, out onlineWarrantyId))
             {
-                WarrantyJobDetailsModel model;
+                JobDetailsModel model;
 
                 // Try from Cache
-                model = LoadJobDetailsFromCache(onlineWarrantyId, deviceSerialNumber);
+                model = LoadJobDetailsFromCache(onlineWarrantyId, DeviceSerialNumber);
                 
                 if (model == null)
                 {
                     // Load from Web
-                    model = LoadJobDetailsFromWeb(onlineWarrantyId, deviceSerialNumber);
+                    model = LoadJobDetailsFromWeb(onlineWarrantyId, DeviceSerialNumber);
 
                     // Cache Response
                     CacheJobDetails(model);
@@ -44,13 +59,13 @@ namespace LWT.DiscoPlugin.Internal
             }
             else
             {
-                return EmptyJobDetails(onlineWarrantyId, deviceSerialNumber);
+                return EmptyJobDetails(onlineWarrantyId, DeviceSerialNumber);
             }
         }
 
-        private static WarrantyJobDetailsModel EmptyJobDetails(int OnlineWarrantyId, string DeviceSerialNumber)
+        private static JobDetailsModel EmptyJobDetails(int OnlineWarrantyId, string DeviceSerialNumber)
         {
-            return new WarrantyJobDetailsModel()
+            return new JobDetailsModel()
             {
                 JobDetailsParsed = false,
                 OnlineWarrantyId = OnlineWarrantyId,
@@ -60,7 +75,7 @@ namespace LWT.DiscoPlugin.Internal
 
         #region Cache
         private static DateTime? NextCachePruneTime;
-        private static WarrantyJobDetailsModel LoadJobDetailsFromCache(int OnlineWarrantyId, string DeviceSerialNumber)
+        private static JobDetailsModel LoadJobDetailsFromCache(int OnlineWarrantyId, string DeviceSerialNumber)
         {
             if (!NextCachePruneTime.HasValue || NextCachePruneTime.Value < DateTime.Now)
                 PruneCache();
@@ -80,7 +95,7 @@ namespace LWT.DiscoPlugin.Internal
                     else
                     {
                         string cacheContent = File.ReadAllText(cacheFilename);
-                        var cacheModel = JsonConvert.DeserializeObject<WarrantyJobDetailsModel>(cacheContent);
+                        var cacheModel = JsonConvert.DeserializeObject<JobDetailsModel>(cacheContent);
                         cacheModel.CacheAge = cacheTime;
                         return cacheModel;
                     }
@@ -108,7 +123,7 @@ namespace LWT.DiscoPlugin.Internal
             }
             NextCachePruneTime = DateTime.Now.AddHours(1);
         }
-        private static void CacheJobDetails(WarrantyJobDetailsModel Details)
+        private static void CacheJobDetails(JobDetailsModel Details)
         {
             try
             {
@@ -125,9 +140,9 @@ namespace LWT.DiscoPlugin.Internal
         #endregion
 
         #region Web Retrieve
-        private static WarrantyJobDetailsModel LoadJobDetailsFromWeb(int OnlineWarrantyId, string DeviceSerialNumber)
+        private static JobDetailsModel LoadJobDetailsFromWeb(int OnlineWarrantyId, string DeviceSerialNumber)
         {
-            WarrantyJobDetailsModel model = new WarrantyJobDetailsModel()
+            JobDetailsModel model = new JobDetailsModel()
             {
                 JobDetailsParsed = false,
                 OnlineWarrantyId = OnlineWarrantyId,
@@ -184,7 +199,7 @@ namespace LWT.DiscoPlugin.Internal
 
                 // Parse Actions
                 node = doc.GetElementbyId("ctl00_ContentPlaceHolder1_GridView1");
-                model.Actions = new List<WarrantyJobDetailsModel.JobDetailsActionViewModel>();
+                model.Actions = new List<JobDetailsModel.JobDetailsActionViewModel>();
                 if (node != null)
                 {
                     foreach (var nodeActionRow in node.Descendants("tr").Skip(1))
@@ -197,7 +212,7 @@ namespace LWT.DiscoPlugin.Internal
                             if (node != null && DateTime.TryParseExact(nodeActionDetails[1].InnerText, "dd-MMM-yyyy", formatProvider, DateTimeStyles.AssumeLocal, out actionDateParse))
                                 actionDate = actionDateParse;
 
-                            model.Actions.Add(new WarrantyJobDetailsModel.JobDetailsActionViewModel()
+                            model.Actions.Add(new JobDetailsModel.JobDetailsActionViewModel()
                             {
                                 Type = nodeActionDetails[0].InnerText,
                                 Date = actionDate,

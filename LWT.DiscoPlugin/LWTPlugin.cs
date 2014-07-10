@@ -9,7 +9,7 @@ using System.Web;
 namespace LWT.DiscoPlugin
 {
     [Plugin(Id = "LWTPlugin", Name = "Learning With Technologies", Author = "Disco Development Team",
-         Url = "http://www.lwt.com.au/", HostVersionMin = "1.2.1031.0")]
+         Url = "http://www.lwt.com.au/", HostVersionMin = "2.0.0710.0")]
     public class LWTPlugin : Plugin
     {
 

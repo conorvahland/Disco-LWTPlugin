@@ -28,26 +28,26 @@ namespace LWT.DiscoPlugin.Features
 
         public override dynamic SubmitJobViewModel(DiscoDataContext Database, Controller controller, Job Job, OrganisationAddress Address, User TechUser)
         {
-            Internal.LWTWarrantyJobs.ValidateEnvironment(Database, controller, TechUser);
+            Internal.LWTJobs.ValidateEnvironment(Database, controller, TechUser);
 
             return null;
         }
 
         public override Dictionary<string, string> SubmitJobParseProperties(DiscoDataContext Database, FormCollection form, Controller controller, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription)
         {
-            Internal.LWTWarrantyJobs.ValidateEnvironment(Database, controller, TechUser);
+            Internal.LWTJobs.ValidateEnvironment(Database, controller, TechUser);
 
             return null;
         }
 
         public override Dictionary<string, string> SubmitJobDiscloseInfo(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription, Dictionary<string, string> WarrantyProviderProperties)
         {
-            return Internal.LWTWarrantyJobs.DiscloseInformation(Database, Job, Address, TechUser);
+            return Internal.LWTJobs.DiscloseInformation(Database, Job, Address, TechUser);
         }
 
         public override string SubmitJob(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription, Dictionary<string, string> WarrantyProviderProperties)
         {
-            return Internal.LWTWarrantyJobs.SubmitJob(Database, Job, Address, TechUser, FaultDescription);
+            return Internal.LWTJobs.SubmitWarrantyJob(Database, Job, Address, TechUser, FaultDescription);
         }
         #endregion
 
@@ -55,12 +55,12 @@ namespace LWT.DiscoPlugin.Features
         
         public override Type JobDetailsViewType
         {
-            get { return typeof(Views.WarrantyJobDetails); }
+            get { return typeof(Views.JobDetails); }
         }
 
         public override dynamic JobDetailsViewModel(DiscoDataContext Database, Controller controller, Job Job)
         {
-            return Internal.LWTJobDetails.LoadJobDetails(Database, Job);
+            return Internal.LWTJobDetails.LoadWarrantyJobDetails(Database, Job);
         }
 
         #endregion

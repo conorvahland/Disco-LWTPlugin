@@ -5,7 +5,7 @@ using System.Web;
 
 namespace LWT.DiscoPlugin.Models
 {
-    public class WarrantyJobDetailsModel
+    public class JobDetailsModel
     {
         public int OnlineWarrantyId { get; set; }
         public string DeviceSerialNumber { get; set; }

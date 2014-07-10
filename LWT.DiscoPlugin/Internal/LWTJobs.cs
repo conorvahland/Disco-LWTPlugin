@@ -6,7 +6,6 @@ using LWT.DiscoPlugin.Configuration;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web;
@@ -14,7 +13,7 @@ using System.Web.Mvc;
 
 namespace LWT.DiscoPlugin.Internal
 {
-    internal static class LWTWarrantyJobs
+    internal static class LWTJobs
     {
         public static bool ValidateEnvironment(DiscoDataContext Database, Controller controller, User TechUser)
         {
@@ -55,7 +54,22 @@ namespace LWT.DiscoPlugin.Internal
             };
         }
 
-        public static string SubmitJob(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription)
+        public static string SubmitRepairJob(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser, string RepairDescription)
+        {
+            if (string.IsNullOrEmpty(RepairDescription))
+                RepairDescription = "REPAIR REQUEST";
+            else
+                RepairDescription = "REPAIR REQUEST" + Environment.NewLine + RepairDescription;
+
+            return SubmitJob(Database, Job, Address, TechUser, RepairDescription);
+        }
+
+        public static string SubmitWarrantyJob(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription)
+        {
+            return SubmitJob(Database, Job, Address, TechUser, FaultDescription);
+        }
+
+        private static string SubmitJob(DiscoDataContext Database, Job Job, OrganisationAddress Address, User TechUser, string FaultDescription)
         {
             // Send Job to LWT
             var config = new ConfigurationStore(Database);

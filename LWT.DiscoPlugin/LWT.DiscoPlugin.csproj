@@ -60,9 +60,9 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -120,23 +120,24 @@
     <Compile Include="Configuration\ConfigurationExtensions.cs" />
     <Compile Include="Configuration\ConfigurationHandler.cs" />
     <Compile Include="Configuration\ConfigurationStore.cs" />
+    <Compile Include="Features\LWTRepairProviderFeature.cs" />
     <Compile Include="Features\LWTWarrantyProviderFeature.cs" />
     <Compile Include="Internal\Helpers.cs" />
     <Compile Include="Internal\LWTJobDetails.cs" />
-    <Compile Include="Internal\LWTWarrantyJobs.cs" />
+    <Compile Include="Internal\LWTJobs.cs" />
     <Compile Include="LWTPlugin.cs" />
     <Compile Include="Models\ConfigurationModel.cs" />
-    <Compile Include="Models\WarrantyJobDetailsModel.cs" />
+    <Compile Include="Models\JobDetailsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\Configuration.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Configuration.cshtml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WarrantyJobDetails.generated.cs">
+    <Compile Include="Views\JobDetails.generated.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WarrantyJobDetails.cshtml</DependentUpon>
+      <DependentUpon>JobDetails.cshtml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +165,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Views\WarrantyJobDetails.cshtml">
+    <None Include="Views\JobDetails.cshtml">
       <Generator>RazorGenerator</Generator>
-      <LastGenOutput>WarrantyJobDetails.generated.cs</LastGenOutput>
+      <LastGenOutput>JobDetails.generated.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <PropertyGroup>
@@ -195,7 +196,7 @@
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties BuildVersion_StartDate="2011/7/1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.DeltaBaseYear.MonthAndDayStamp.TimeStamp" BuildVersion_UseGlobalSettings="False" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_BuildVersioningStyle="None.DeltaBaseYear.MonthAndDayStamp.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2011/7/1" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

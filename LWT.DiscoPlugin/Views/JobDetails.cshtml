@@ -1,11 +1,11 @@
-﻿@model LWT.DiscoPlugin.Models.WarrantyJobDetailsModel
-<div id="LWTWarrantyProviderJobDetails">
+﻿@model LWT.DiscoPlugin.Models.JobDetailsModel
+<div id="LWTProviderJobDetails">
     @if (Model == null || !Model.JobDetailsParsed)
     {
         <table>
             <tr>
                 <td style="text-align: center; vertical-align: middle;">
-                    <span class="smallMessage">Unable to provide details for this Job</span>
+                    <span class="smallMessage">Unable to provide details for this Job. After logging a job, it make take several hours for details to become available.</span>
                 </td>
                 <td rowspan="3" style="width: 300px;">
                     <div style="text-align: center; padding-top: 10px;">
