@@ -149,7 +149,7 @@ namespace LWT.DiscoPlugin.Internal
                 DeviceSerialNumber = DeviceSerialNumber
             };
 
-            string wreqUrl = string.Format("http://www.lwt.com.au/warrantydetails.aspx?SectorID=1&OnlineWarrantyID={0}&Serial={1}", OnlineWarrantyId, DeviceSerialNumber);
+            string wreqUrl = string.Format("http://www.lwt.com.au/warrantydetails.aspx?SectorID=1&OnlineWarrantyID={0}&Serial={1}", OnlineWarrantyId, Helpers.ParseSerialNumber(DeviceSerialNumber));
 
             HttpWebRequest wreq = (HttpWebRequest)HttpWebRequest.Create(wreqUrl);
             wreq.KeepAlive = false;

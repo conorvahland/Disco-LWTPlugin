@@ -37,6 +37,12 @@ namespace LWT.DiscoPlugin.Internal
         {
             var config = new ConfigurationStore(Database);
 
+            string serialNumberMessage;
+            if (Job.Device.HasAlternateSerialNumber(out serialNumberMessage))
+                serialNumberMessage += " [Acer SNID]";
+            else
+                serialNumberMessage = Job.DeviceSerialNumber;
+
             return new Dictionary<string, string>()
             {
                 {"LWT Customer Entity Id", config.CustomerEntityId},
@@ -48,7 +54,7 @@ namespace LWT.DiscoPlugin.Internal
                 {"Contact Postcode", Address.Postcode},
                 {"Contact Phone", TechUser.PhoneNumber},
                 {"Contact Email", TechUser.EmailAddress},
-                {"Device Serial Number", Job.DeviceSerialNumber},
+                {"Device Serial Number", serialNumberMessage},
                 {"Device Product Description", String.Format("{0} {1}", Job.Device.DeviceModel.Manufacturer, Job.Device.DeviceModel.Model)},
                 {"Device Room Location", String.Format("Customer Job Id: {0}", Job.Id)}
             };
@@ -85,7 +91,7 @@ namespace LWT.DiscoPlugin.Internal
             httpBody.Append("&txtContactPostcode=").Append(HttpUtility.UrlEncode(Address.Postcode));
             httpBody.Append("&txtContactPhone=").Append(HttpUtility.UrlEncode(TechUser.PhoneNumber));
             httpBody.Append("&txtContactEmail=").Append(HttpUtility.UrlEncode(TechUser.EmailAddress));
-            httpBody.Append("&txtSerialNumber=").Append(HttpUtility.UrlEncode(Job.DeviceSerialNumber));
+            httpBody.Append("&txtSerialNumber=").Append(HttpUtility.UrlEncode(Job.Device.ParseSerialNumber()));
             httpBody.Append("&txtProductDescription=").Append(HttpUtility.UrlEncode(String.Format("{0} {1}", Job.Device.DeviceModel.Manufacturer, Job.Device.DeviceModel.Model)));
             httpBody.Append("&txtRoomLocation=").Append(HttpUtility.UrlEncode("Customer Job Id: ")).Append(Job.Id);
             httpBody.Append("&txtFaultDescription=").Append(HttpUtility.UrlEncode(FaultDescription));
