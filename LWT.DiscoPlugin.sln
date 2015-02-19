@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LWT.DiscoPlugin", "LWT.DiscoPlugin\LWT.DiscoPlugin.csproj", "{6C2F0E35-9FC8-4426-9A5A-C1635D18B42D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F5039D4E-3567-4652-BD9F-BCF25D91BEEA}"
@@ -23,5 +25,15 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		ConfigurationFilter = 
+		AssemblyInfoFilePath = 
+		UpdateAssemblyVersion = True
+		UpdateAssemblyFileVersion = True
+		UpdateAssemblyInfoVersion = False
+		AssemblyVersionSettings = None.None.DateStamp.TimeStamp
+		AssemblyFileVersionSettings = None.None.DateStamp.TimeStamp
+		AssemblyInfoVersionSettings = 
 	EndGlobalSection
 EndGlobal
